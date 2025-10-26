@@ -4,861 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffex - Premium Coffee Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #161718;
-            --accent: #e4c590;
-            --secondary: #2a2a2c;
-            --tertiary: #3a3a3c;
-            --text-light: #e8e8e8;
-            --text-muted: #a8a8a8;
-            --transition-fast: 0.3s ease;
-            --transition-smooth: 0.6s ease;
-            --transition-slow: 1s ease;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--primary);
-            color: var(--text-light);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* ===== LOADER ===== */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            animation: fadeOutLoader 0.8s ease forwards 2.5s;
-        }
-
-        .loader.hidden {
-            display: none;
-        }
-
-        .diamond-loader {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            animation: diamondZoom 2.5s ease forwards;
-        }
-
-        .diamond-loader svg {
-            width: 100%;
-            height: 100%;
-            animation: rotateDiamond 3s linear infinite;
-        }
-
-        @keyframes rotateDiamond {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes diamondZoom {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            80% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeOutLoader {
-            0% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
-        /* ===== HEADER & NAVIGATION ===== */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(22, 23, 24, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(228, 197, 144, 0.1);
-        }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .nav-desktop {
-            display: none;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .nav-desktop a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            position: relative;
-            transition: color var(--transition-fast);
-        }
-
-        .nav-desktop a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width var(--transition-fast);
-        }
-
-        .nav-desktop a:hover::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: 2px solid var(--accent);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            transform: rotate(45deg);
-        }
-
-        .menu-toggle:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-
-        .menu-toggle svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            transform: rotate(-45deg);
-        }
-
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--primary);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(-100%);
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            padding: 2rem;
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: 2px solid var(--accent);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            transform: rotate(45deg);
-        }
-
-        .mobile-menu-close:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-
-        .mobile-menu-close svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            transform: rotate(-45deg);
-        }
-
-        .mobile-menu-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .mobile-menu-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .mobile-menu-nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 1.1rem;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(228, 197, 144, 0.2);
-            transition: color var(--transition-fast);
-            text-align: left;
-        }
-
-        .mobile-menu-nav a:hover {
-            color: var(--accent);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            min-height: 600px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 60px;
-        }
-
-        .hero-slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .hero-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .hero-slide.active {
-            opacity: 1;
-        }
-
-        .hero-slide-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            animation: zoomIn 8s ease-in-out forwards;
-        }
-
-        .hero-slide-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(22, 23, 24, 0.6);
-        }
-
-        @keyframes zoomIn {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            color: var(--text-light);
-            animation: slideUp 0.8s ease forwards;
-            opacity: 0;
-        }
-
-        .hero-slide.active .hero-content {
-            animation: slideUp 0.8s ease forwards 0.3s;
-            opacity: 1;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-title {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .diamond-underline {
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-        }
-
-        .diamond-underline svg {
-            width: 100%;
-            height: 100%;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: var(--text-light);
-            margin: 2rem 0 1rem;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-description {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            padding: 0.8rem 2.5rem;
-            background-color: var(--accent);
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            border: 2px solid var(--accent);
-            transition: all var(--transition-fast);
-            cursor: pointer;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .hero-cta:hover {
-            background-color: transparent;
-            color: var(--accent);
-        }
-
-        .hero-controls {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            z-index: 20;
-        }
-
-        .hero-dot {
-            width: 12px;
-            height: 12px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            background-color: transparent;
-        }
-
-        .hero-dot.active {
-            background-color: var(--accent);
-            transform: scale(1.3);
-        }
-
-        /* Desktop Hero Controls */
-        .hero-nav-buttons {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: none;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        .hero-nav-btn {
-            width: 60px;
-            height: 60px;
-            border: 2px solid var(--accent);
-            background: none;
-            color: var(--accent);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all var(--transition-fast);
-            pointer-events: all;
-            transform: rotate(45deg);
-        }
-
-        .hero-nav-btn svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            transform: rotate(-45deg);
-        }
-
-        .hero-nav-btn:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-
-        /* ===== FEATURED COFFEE SECTION ===== */
-        .featured {
-            padding: 4rem 2rem;
-            background-color: var(--secondary);
-            position: relative;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
-            font-weight: 700;
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 0.5rem;
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-        }
-
-        .section-title::after svg {
-            width: 100%;
-            height: 100%;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .coffee-card {
-            background-color: var(--tertiary);
-            border: 1px solid rgba(228, 197, 144, 0.2);
-            overflow: hidden;
-            transition: all var(--transition-smooth);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .coffee-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-        }
-
-        .coffee-card-img {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #8B6F47 0%, #D4A574 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            overflow: hidden;
-        }
-
-        .coffee-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .coffee-card-content {
-            padding: 1.5rem;
-        }
-
-        .coffee-card-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .coffee-card-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .coffee-card-price {
-            font-size: 1.2rem;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* ===== SERVICES SECTION ===== */
-        .services {
-            padding: 4rem 2rem;
-            background-color: var(--primary);
-            position: relative;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .service-card {
-            background-color: var(--secondary);
-            padding: 2rem;
-            border: 1px solid rgba(228, 197, 144, 0.2);
-            text-align: center;
-            transition: all var(--transition-smooth);
-            position: relative;
-        }
-
-        .service-card:hover {
-            border-color: var(--accent);
-            background-color: var(--tertiary);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--accent);
-        }
-
-        .service-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 1.5;
-        }
-
-        .service-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .service-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        /* ===== ABOUT SECTION ===== */
-        .about {
-            padding: 4rem 2rem;
-            background-color: var(--secondary);
-            position: relative;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .about-text h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            line-height: 1.8;
-        }
-
-        .about-image {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #8B6F47 0%, #D4A574 100%);
-            border: 2px solid var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            overflow: hidden;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* ===== DECORATIVE ELEMENTS ===== */
-        .diamond-decoration {
-            position: absolute;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .diamond-decoration svg {
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 1.5;
-        }
-
-        .circling-diamond {
-            animation: circleDiamond 20s linear infinite;
-        }
-
-        @keyframes circleDiamond {
-            0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background-color: var(--primary);
-            border-top: 1px solid rgba(228, 197, 144, 0.2);
-            padding: 3rem 2rem 1rem;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-        }
-
-        .footer-section h4 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color var(--transition-fast);
-            font-size: 0.9rem;
-        }
-
-        .footer-section a:hover {
-            color: var(--accent);
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-            text-decoration: none;
-            transition: all var(--transition-fast);
-            cursor: pointer;
-        }
-
-        .social-icon:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-
-        .social-icon svg {
-            width: 20px;
-            height: 20px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.5;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(228, 197, 144, 0.1);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .footer-diamond {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-            opacity: 0.3;
-        }
-
-        .footer-diamond svg {
-            width: 100%;
-            height: 100%;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (min-width: 768px) {
-            .nav-desktop {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            .hero-nav-buttons {
-                display: flex;
-            }
-
-            .hero-controls {
-                display: none;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .about-image {
-                height: 400px;
-            }
-
-            .featured {
-                padding: 5rem 3rem;
-            }
-
-            .services {
-                padding: 5rem 3rem;
-            }
-
-            .about {
-                padding: 5rem 3rem;
-            }
-
-            footer {
-                padding: 4rem 3rem 1rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .featured-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- LOADER -->
@@ -883,23 +31,22 @@
         </nav>
 
         <button class="menu-toggle" id="menuToggle">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <line x1="6" y1="6" x2="18" y2="18"/>
-                <line x1="18" y1="6" x2="6" y2="18"/>
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
         </button>
     </header>
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" id="menuClose">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <line x1="6" y1="6" x2="18" y2="18"/>
-                <line x1="18" y1="6" x2="6" y2="18"/>
-            </svg>
-        </button>
-        
-        <div class="mobile-menu-logo">Coffex</div>
+        <div class="mobile-menu-header">
+            <img src="logo.png" alt="Coffex Logo" class="mobile-menu-logo-img">
+            <button class="mobile-menu-close" id="menuClose">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,10 90,50 50,90 10,50"/>
+                </svg>
+            </button>
+        </div>
         
         <nav class="mobile-menu-nav">
             <a href="#home" onclick="closeMobileMenu()">Home</a>
@@ -918,15 +65,27 @@
                 <div class="hero-slide-bg" style="background-image: url('assets/images/hero-bg1.jpg');"></div>
                 <div class="hero-slide-overlay"></div>
                 <div class="hero-content">
-                    <h1 class="hero-title">
-                        Artisan Coffee
-                        <div class="diamond-underline">
-                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </div>
-                    </h1>
-                    <p class="hero-subtitle">Crafted with Passion</p>
+                    <p class="hero-subtitle">Delightful Experience</p>
+                    <div class="diamond-divider">
+                        <span class="diamond-divider-line"></span>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <span class="diamond-divider-line"></span>
+                    </div>
+                    <h1 class="hero-title">Artisan Coffee</h1>
                     <p class="hero-description">Experience the finest coffee blends from around the world, roasted to perfection in our artisan roastery.</p>
                     <a href="#featured" class="hero-cta">Explore Now</a>
                 </div>
@@ -937,15 +96,27 @@
                 <div class="hero-slide-bg" style="background-image: url('assets/images/hero-bg2.jpg');"></div>
                 <div class="hero-slide-overlay"></div>
                 <div class="hero-content">
-                    <h1 class="hero-title">
-                        Premium Blends
-                        <div class="diamond-underline">
-                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </div>
-                    </h1>
-                    <p class="hero-subtitle">Taste the Difference</p>
+                    <p class="hero-subtitle">Premium Quality</p>
+                    <div class="diamond-divider">
+                        <span class="diamond-divider-line"></span>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <span class="diamond-divider-line"></span>
+                    </div>
+                    <h1 class="hero-title">Premium Blends</h1>
                     <p class="hero-description">Discover our exclusive single-origin coffees and signature blends that define excellence.</p>
                     <a href="#featured" class="hero-cta">Shop Now</a>
                 </div>
@@ -956,15 +127,27 @@
                 <div class="hero-slide-bg" style="background-image: url('assets/images/hero-bg3.jpg');"></div>
                 <div class="hero-slide-overlay"></div>
                 <div class="hero-content">
-                    <h1 class="hero-title">
-                        Sustainable Source
-                        <div class="diamond-underline">
-                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </div>
-                    </h1>
-                    <p class="hero-subtitle">Ethically Sourced</p>
+                    <p class="hero-subtitle">Sustainable Sourcing</p>
+                    <div class="diamond-divider">
+                        <span class="diamond-divider-line"></span>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <span class="diamond-divider-line"></span>
+                    </div>
+                    <h1 class="hero-title">Ethically Sourced</h1>
                     <p class="hero-description">Supporting fair trade practices and sustainable farming communities worldwide.</p>
                     <a href="#featured" class="hero-cta">Learn More</a>
                 </div>
@@ -975,37 +158,32 @@
                 <div class="hero-slide-bg" style="background-image: url('assets/images/hero-bg4.jpg');"></div>
                 <div class="hero-slide-overlay"></div>
                 <div class="hero-content">
-                    <h1 class="hero-title">
-                        Coffee Culture
-                        <div class="diamond-underline">
-                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </div>
-                    </h1>
-                    <p class="hero-subtitle">Join Our Community</p>
+                    <p class="hero-subtitle">Coffee Culture</p>
+                    <div class="diamond-divider">
+                        <span class="diamond-divider-line"></span>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,50 50,90 10,50"/>
+                        </svg>
+                        <span class="diamond-divider-line"></span>
+                    </div>
+                    <h1 class="hero-title">Coffee Culture</h1>
                     <p class="hero-description">Visit our cafés to experience the perfect blend of ambiance, service, and exceptional coffee.</p>
                     <a href="#featured" class="hero-cta">Visit Us</a>
                 </div>
             </div>
         </div>
-
-        <!-- Hero Navigation Buttons (Desktop) -->
-        <div class="hero-nav-buttons">
-            <button class="hero-nav-btn" id="heroPrev">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <polyline points="15 18 9 12 15 6"/>
-                </svg>
-            </button>
-            <button class="hero-nav-btn" id="heroNext">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <polyline points="9 18 15 12 9 6"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Hero Dots (Mobile) -->
-        <div class="hero-controls" id="heroDots"></div>
     </section>
 
     <!-- FEATURED COFFEE SECTION -->
@@ -1185,122 +363,6 @@
         </div>
     </footer>
 
-    <script>
-        // ===== LOADER =====
-        window.addEventListener('load', function() {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 2500);
-        });
-
-        // ===== MOBILE MENU =====
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuClose = document.getElementById('menuClose');
-
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-        });
-
-        menuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-        });
-
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('active');
-        }
-
-        // ===== HERO SLIDER =====
-        const heroSlider = document.getElementById('heroSlider');
-        const slides = document.querySelectorAll('.hero-slide');
-        const heroDots = document.getElementById('heroDots');
-        const heroPrev = document.getElementById('heroPrev');
-        const heroNext = document.getElementById('heroNext');
-
-        let currentSlide = 0;
-        let autoSlideInterval;
-
-        // Create dots
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.className = 'hero-dot';
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            heroDots.appendChild(dot);
-        });
-
-        const dots = document.querySelectorAll('.hero-dot');
-
-        function updateSlide() {
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                dots[index].classList.remove('active');
-            });
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlide();
-            resetAutoSlide();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateSlide();
-            resetAutoSlide();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlide();
-            resetAutoSlide();
-        }
-
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 8000);
-        }
-
-        function resetAutoSlide() {
-            clearInterval(autoSlideInterval);
-            startAutoSlide();
-        }
-
-        heroPrev.addEventListener('click', prevSlide);
-        heroNext.addEventListener('click', nextSlide);
-
-        startAutoSlide();
-
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // ===== SCROLL ANIMATIONS =====
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'slideUp 0.8s ease forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.coffee-card, .service-card').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
