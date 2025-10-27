@@ -95,6 +95,10 @@ body {
     .loader {
         transition: transform 1.9s ease, opacity 1.9s ease;
     }
+    
+    .diamond-loader {
+      animation: diamondZoom 2s ease forwards;
+    }
 
     @keyframes diamondZoom {
         0% {
