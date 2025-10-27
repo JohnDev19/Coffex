@@ -32,10 +32,17 @@ window.addEventListener('load', function() {
 // ===== SCROLL HEADER BACKGROUND =====
 window.addEventListener('scroll', function() {
     const header = document.querySelector('header');
+    const topInfoBar = document.querySelector('.top-info-bar');
     if (window.scrollY > 100) {
         header.classList.add('scrolled');
+        if (topInfoBar) {
+            topInfoBar.classList.add('scrolled');
+        }
     } else {
         header.classList.remove('scrolled');
+        if (topInfoBar) {
+            topInfoBar.classList.remove('scrolled');
+        }
     }
 });
 
@@ -47,16 +54,19 @@ const menuClose = document.getElementById('menuClose');
 menuToggle.addEventListener('click', () => {
     mobileMenu.classList.add('active');
     menuToggle.classList.add('active');
+    document.body.classList.add('menu-open');
 });
 
 menuClose.addEventListener('click', () => {
     mobileMenu.classList.remove('active');
     menuToggle.classList.remove('active');
+    document.body.classList.remove('menu-open');
 });
 
 function closeMobileMenu() {
     mobileMenu.classList.remove('active');
     menuToggle.classList.remove('active');
+    document.body.classList.remove('menu-open');
 }
 
 // ===== HERO SLIDER =====
