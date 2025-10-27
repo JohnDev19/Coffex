@@ -1,6 +1,6 @@
 # ☕ Coffex - Premium Coffee Website Template
 
-A fully responsive website template designed for coffee shops, cafes, and premium beverage businesses. Features an elegant design with a distinctive diamond-shaped theme and smooth animations throughout.
+A fully responsive website template designed for coffee shops, cafes, and premium beverage businesses. Features an elegant design with diamond-shaped theme and smooth animations throughout.
 
 ## Template Features
 
