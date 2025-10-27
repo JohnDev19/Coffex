@@ -1,3 +1,40 @@
+/*
+==========================
+  COFFEX - COFFEE SHOP WEBSITE
+==========================
+
+PROJECT DETAILS
+- Name: Coffex – Coffee Shop Website
+- Version: 1.0.0
+- Description: Modern, fully responsive website template designed for coffee shops, cafes, and premium beverage businesses.
+
+DEVELOPER INFORMATION
+- Developer: JohnDev19
+- GitHub: https://github.com/JohnDev19
+
+PROJECT METADATA
+- Last Update: 2025-08-19
+- License: MIT License
+
+TECHNOLOGIES & FRAMEWORKS
+- Core: Vanilla JavaScript (ES6+)
+- Libraries: AOS (Animate on Scroll)
+- Performance: Lazy Background Loading, Optimized Scroll Animations
+- Interaction: Smooth Scroll, Hero Slider, Responsive Navigation
+
+==========================
+  TABLE OF CONTENTS
+==========================
+01. Loader Initialization
+02. Scroll Header Background
+03. Mobile Menu Toggle
+04. Hero Slider
+05. Smooth Scroll Links
+06. Scroll Animations (Intersection Observer)
+07. View Menu Button Scroll
+==========================
+*/
+
 // ===== LOADER =====
 window.addEventListener('load', function() {
     const loader = document.getElementById('loader');
