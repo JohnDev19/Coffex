@@ -41,31 +41,33 @@ body {
     justify-content: center;
     z-index: 9999;
     opacity: 1;
-    transition: opacity 0.8s ease;
+    transform: translateY(0);
+    transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
 .loader.hidden {
+    transform: translateY(100%);
     opacity: 0;
-    poForum-events: none;
-    visibility: hidden;
+    pointer-events: none;
 }
 
 .diamond-loader {
     width: 80px;
     height: 80px;
     position: relative;
-    animation: diamondZoom 2.5s ease forwards;
+    animation: diamondZoom 3.3s ease forwards;
 }
 
 .diamond-loader svg {
     width: 100%;
     height: 100%;
-    animation: rotateDiamond 3s linear infinite;
+    color: var(--secondary);
+    animation: rotateDiamond 7s linear infinite;
 }
 
 @keyframes rotateDiamond {
     0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    100% { transform: rotate(1440deg); }
 }
 
 @keyframes diamondZoom {
@@ -73,12 +75,12 @@ body {
         transform: scale(1);
         opacity: 1;
     }
-    80% {
+    90% {
         transform: scale(1.2);
         opacity: 1;
     }
     100% {
-        transform: scale(1.5);
+        transform: scale(20);
         opacity: 0;
     }
 }
@@ -86,6 +88,28 @@ body {
 @keyframes fadeOutLoader {
     0% { opacity: 1; }
     100% { opacity: 0; visibility: hidden; }
+}
+
+/* Larger screens (laptops / desktops) */
+@media (min-width: 1024px) {
+    .loader {
+        transition: transform 1.9s ease, opacity 1.9s ease;
+    }
+
+    @keyframes diamondZoom {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        90% {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(40);
+            opacity: 0;
+        }
+    }
 }
 
 /* ===== HEADER & NAVIGATION ===== */
@@ -356,7 +380,7 @@ header.scrolled {
 
 @keyframes zoomIn {
     0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
+    100% { transform: scale(1.3); }
 }
 
 .hero-content {
@@ -487,21 +511,28 @@ header.scrolled {
 }
 
 .featured-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
     margin-top: 4rem;
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
 
-@media (min-width: 768px) {
-    .featured-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        max-width: 1200px;
-    }
+/* Ornamental connector - vertical for mobile */
+.coffee-card:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 60px;
+    margin: 1rem auto;
+    background-image: url('assets/images/ornament.png');
+    background-size: 40px auto;
+    background-repeat: repeat-y;
+    background-position: center;
+    opacity: 0.6;
 }
 
 .coffee-card {
@@ -509,6 +540,7 @@ header.scrolled {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    position: relative;
 }
 
 .coffee-card-img {
@@ -532,45 +564,126 @@ header.scrolled {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    position: relative;
 }
 
+/* Mobile - Square images */
 .coffee-card-diamond-img {
-    width: 200px;
-    height: 200px;
-    transform: rotate(45deg);
+    width: 280px;
+    height: 280px;
+    transform: none;
     overflow: hidden;
-    border: 3px solid #666;
-    transition: border-color 0.4s ease;
-    margin-bottom: 2rem;
+    border: 3px solid #0E0D0B;
+    transition: all 0.4s ease;
+    position: relative;
 }
 
 .coffee-card-diamond-img:hover {
     border-color: var(--accent);
 }
 
-.coffee-card-diamond-img img {
-    width: 141%;
-    height: 141%;
-    object-fit: cover;
-    transform: rotate(-45deg) translate(-15%, -15%);
+/* Dim overlay on hover */
+.coffee-card-diamond-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 5;
 }
 
+.coffee-card-diamond-img:hover::before {
+    opacity: 1;
+}
+
+.coffee-card-diamond-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
+    transition: transform 0.4s ease;
+}
+
+.coffee-card-diamond-img:hover img {
+    transform: scale(1.05);
+}
+
+/* Hover button inside image - text only */
 .coffee-card-menu-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: none;
     border: none;
     color: var(--text-light);
     font-weight: 600;
-    cursor: poForum;
-    transition: color 0.4s ease;
+    cursor: pointer;
+    transition: all 0.4s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.95rem;
-    padding: 0.5rem 1rem;
-    margin-top: 2rem;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.coffee-card-diamond-img:hover .coffee-card-menu-btn {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .coffee-card-menu-btn:hover {
     color: var(--accent);
+}
+
+/* Desktop - Diamond images without line connectors */
+@media (min-width: 768px) {
+    .featured-grid {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8rem;
+        max-width: 1200px;
+    }
+
+    /* Remove vertical connector on desktop */
+    .coffee-card:not(:last-child)::after {
+        display: none;
+    }
+
+    .coffee-card {
+        position: relative;
+        margin: 0;
+    }
+
+    /* Diamond shape for desktop */
+    .coffee-card-diamond-img {
+        width: 250px;
+        height: 250px;
+        transform: rotate(45deg);
+    }
+
+    .coffee-card-diamond-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .coffee-card-diamond-img:hover img {
+        transform: rotate(-45deg) scale(3.2);
+    }
+
+    /* Button stays in center even with rotation */
+    .coffee-card-menu-btn {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
 }
 
 /* ===== SERVICES SECTION ===== */
