@@ -20,6 +20,32 @@
         </div>
     </div>
 
+    <!-- TOP INFO BAR -->
+    <div class="top-info-bar">
+        <div class="top-info-container">
+            <div class="top-info-left">
+                <div class="top-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>123 Coffee Street, Bean City, CA 90210</span>
+                </div>
+                <div class="top-info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Mon-Fri: 7AM - 8PM | Sat-Sun: 8AM - 6PM</span>
+                </div>
+            </div>
+            <div class="top-info-right">
+                <div class="top-info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="top-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>hello@coffex.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- HEADER -->
     <header>
         <div class="logo">
@@ -37,6 +63,8 @@
             <a href="#contact">Contact</a>
         </nav>
 
+        <a href="#featured" class="shop-now-btn">Shop Now</a>
+
         <button class="menu-toggle" id="menuToggle">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -46,28 +74,63 @@
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-header">
-            <button class="mobile-menu-close" id="menuClose">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <polygon points="50,10 90,50 50,90 10,50"/>
-                </svg>
-            </button>
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <button class="mobile-menu-close" id="menuClose">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="50,10 90,50 50,90 10,50"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="mobile-menu-logo">
+                <img src="logo.png" alt="Coffex Logo" class="mobile-menu-logo-img">
+                <span class="mobile-menu-logo-text">COFFEX</span>
+            </div>
+            
+            <nav class="mobile-menu-nav">
+                <a href="#home" onclick="closeMobileMenu()">Home</a>
+                <a href="#featured" onclick="closeMobileMenu()">Featured</a>
+                <a href="#services" onclick="closeMobileMenu()">Services</a>
+                <a href="#menu" onclick="closeMobileMenu()">Menu</a>
+                <a href="#about" onclick="closeMobileMenu()">About</a>
+                <a href="#blog" onclick="closeMobileMenu()">Blog</a>
+                <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+            </nav>
+
+            <div class="mobile-menu-divider"></div>
+
+            <div class="mobile-menu-contact">
+                <div class="mobile-menu-contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div class="mobile-menu-contact-text">
+                        <span class="mobile-menu-contact-label">Phone</span>
+                        <span class="mobile-menu-contact-value">+1 (555) 123-4567</span>
+                    </div>
+                </div>
+                <div class="mobile-menu-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="mobile-menu-contact-text">
+                        <span class="mobile-menu-contact-label">Email</span>
+                        <span class="mobile-menu-contact-value">hello@coffex.com</span>
+                    </div>
+                </div>
+                <div class="mobile-menu-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="mobile-menu-contact-text">
+                        <span class="mobile-menu-contact-label">Address</span>
+                        <span class="mobile-menu-contact-value">123 Coffee Street, Bean City, CA 90210</span>
+                    </div>
+                </div>
+                <div class="mobile-menu-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="mobile-menu-contact-text">
+                        <span class="mobile-menu-contact-label">Hours</span>
+                        <span class="mobile-menu-contact-value">Mon-Fri: 7AM - 8PM<br>Sat-Sun: 8AM - 6PM</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="mobile-menu-logo">
-            <img src="logo.png" alt="Coffex Logo" class="mobile-menu-logo-img">
-            <span class="mobile-menu-logo-text">COFFEX</span>
-        </div>
-        
-        <nav class="mobile-menu-nav">
-            <a href="#home" onclick="closeMobileMenu()">Home</a>
-            <a href="#featured" onclick="closeMobileMenu()">Featured</a>
-            <a href="#services" onclick="closeMobileMenu()">Services</a>
-            <a href="#menu" onclick="closeMobileMenu()">Menu</a>
-            <a href="#about" onclick="closeMobileMenu()">About</a>
-            <a href="#blog" onclick="closeMobileMenu()">Blog</a>
-            <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-        </nav>
     </div>
 
     <!-- HERO SECTION -->
