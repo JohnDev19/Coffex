@@ -518,6 +518,53 @@ header.scrolled {
     padding: 4rem 2rem;
     background-color: var(--primary);
     position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.featured::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 250px;
+    height: 250px;
+    background-image: url('assets/images/coffee-beans.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatLeftRight 8s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.20;
+}
+
+.featured::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background-image: url('assets/images/coffee-beans.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatRightLeft 8s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.20;
+}
+
+.featured::before,
+.featured::after {
+    z-index: -2 !important;
+}
+
+@keyframes floatLeftRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(30px); }
+}
+
+@keyframes floatRightLeft {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-30px); }
 }
 
 .section-title {
@@ -846,10 +893,33 @@ header.scrolled {
 
 /* ===== FOOTER ===== */
 footer {
-    background-color: var(--primary);
-    border-top: 1px solid rgba(228, 197, 144, 0.2);
+    background: var(--primary) url('assets/images/footer-bg.png') no-repeat center/cover;
+    border-top: 1px solid var(--accent);
     padding: 3rem 2rem 1rem;
     position: relative;
+    overflow: hidden;
+}
+
+/* Dark overlay */
+footer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.786);
+    z-index: 1;
+    pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+    footer {
+        background-image: url('assets/images/footer-bg-trimmed.png');
+        background-size: cover;
+    }
+}
+
+footer > * {
+    position: relative;
+    z-index: 2;
 }
 
 .footer-content {
@@ -879,9 +949,8 @@ footer {
     font-size: 1.3rem;
 }
 
-
 .footer-section a {
-    color: var(--text-muted);
+    color: var(--text-light);
     text-decoration: none;
     transition: color var(--transition-fast);
     font-size: 1.3rem;
@@ -890,11 +959,36 @@ footer {
 .footer-section a:hover {
     color: var(--accent);
 }
-
 .footer-social {
     display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1.4rem;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(45deg);
+    border: 1px solid var(--text-light);
+    transition: 0.3s;
+}
+
+.footer-social a i {
+    transform: rotate(-45deg);
+    font-size: 1rem;
+    color: var(--text-light);
+    transition: 0.3s;
+}
+
+/* Hover */
+.footer-social a:hover {
+    border-color: var(--accent);
+}
+
+.footer-social a:hover i {
+    color: var(--accent);
 }
 
 .social-icon {
@@ -927,7 +1021,7 @@ footer {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid rgba(228, 197, 144, 0.1);
-    color: var(--text-muted);
+    color: var(--text-light);
     font-size: 1.3rem;
 }
 
@@ -938,7 +1032,6 @@ footer {
     transform: translateX(-50%);
     width: 60px;
     height: 60px;
-    opacity: 0.3;
 }
 
 .footer-diamond svg {
@@ -953,33 +1046,74 @@ footer {
 .menu {
     padding: 4rem 2rem;
     background-color: var(--primary);
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.menu::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 250px;
+    height: 250px;
+    background-image: url('assets/images/coffee-beans.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatLeftRight 8s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.20;
+}
+
+.menu::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background-image: url('assets/images/coffee-beans.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatRightLeft 8s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.20;
+}
+
+.menu::before,
+.menu::after {
+    z-index: -2 !important;
 }
 
 .menu-container {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto 3rem;
+}
+
+.menu-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .menu-item {
     display: flex;
-    flex-direction: column;
-    background-color: var(--secondary);
-    border: 1px solid rgba(228, 197, 144, 0.2);
-    overflow: hidden;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(228, 197, 144, 0.15);
+    flex-direction: row;
+    align-items: center;
+    transition: all var(--transition-fast);
+    gap: 1.5rem;
+    padding: 1.5rem 0;
 }
 
 .menu-item-image {
-    width: 100%;
-    height: 200px;
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    border-radius: 20px;
     overflow: hidden;
     position: relative;
 }
@@ -992,43 +1126,36 @@ footer {
 }
 
 .menu-item:hover .menu-item-image img {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .menu-item-content {
-    padding: 1.5rem;
-}
-
-.menu-item-header {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.menu-item-header h4 {
+.menu-item-title {
     font-family: 'Marcellus', serif;
-    color: var(--accent);
+    color: var(--text-light);
     font-size: 1.5rem;
+    margin: 0;
 }
 
 .menu-item-price {
     font-family: 'Marcellus', serif;
     color: var(--accent);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
+    display: block;
 }
 
 .menu-item-desc {
     color: var(--text-muted);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.6;
-}
-
-.menu-column {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    margin: 0;
 }
 
 .menu-divider {
@@ -1274,25 +1401,6 @@ footer {
         padding: 5rem 3rem;
     }
 
-    .menu-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2.5rem;
-    }
-    
-    .menu-item {
-        flex-direction: row;
-    }
-    
-    .menu-item-image {
-        width: 180px;
-        height: auto;
-        min-height: 160px;
-    }
-    
-    .menu-item-content {
-        flex: 1;
-    }
-
     .contact-card {
         flex-direction: row;
         padding: 3rem 4rem;
@@ -1317,15 +1425,89 @@ footer {
     }
     
     .menu-container {
-        grid-template-columns: repeat(3, 1fr);
+        display: grid;
+        grid-template-columns: 1fr minmax(80px, 120px) 1fr;
+        gap: 3rem;
+        align-items: start;
     }
     
-    .menu-item {
+    .menu-divider {
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        position: relative;
+        padding: 2rem 0;
+    }
+    
+    .menu-divider-line {
+        width: 1px;
+        flex: 1;
+        background: linear-gradient(to bottom, 
+            transparent 0%, 
+            var(--accent) 20%, 
+            var(--accent) 80%, 
+            transparent 100%);
+        min-height: 100%;
+    }
+    
+    .menu-divider-diamond {
+        width: 30px;
+        height: 30px;
+        fill: var(--accent);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
     
     .menu-item-image {
-        width: 100%;
-        height: 220px;
+        width: 140px;
+        height: 140px;
+        min-width: 140px;
+    }
+    
+    .menu-item-title {
+        font-size: 1.6rem;
+    }
+    
+    .menu-item-price {
+        font-size: 1.4rem;
+    }
+    
+    .featured::before {
+        width: 400px;
+        height: 400px;
+        top: -100px;
+        left: -100px;
+    }
+    
+    .featured::after {
+        width: 400px;
+        height: 400px;
+        bottom: -100px;
+        right: -100px;
+    }
+    
+    .menu::before {
+        width: 400px;
+        height: 400px;
+        top: -100px;
+        left: -100px;
+    }
+    
+    .menu::after {
+        width: 400px;
+        height: 400px;
+        bottom: -100px;
+        right: -100px;
+    }
+    
+    footer::before {
+        width: 350px;
+        height: 350px;
+        top: -80px;
+        right: -80px;
     }
 }
