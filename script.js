@@ -1,9 +1,32 @@
 // ===== LOADER =====
 window.addEventListener('load', function() {
     const loader = document.getElementById('loader');
+    
+    setTimeout(() => {
+        const lazyBackgrounds = document.querySelectorAll('[data-bg]');
+        lazyBackgrounds.forEach(bg => {
+            bg.style.backgroundImage = `url('${bg.dataset.bg}')`;
+        });
+    }, 100);
+    
     setTimeout(() => {
         loader.classList.add('hidden');
-    }, 2500);
+        loaderFinished = true;
+        
+        setTimeout(() => {
+            const activeSlide = document.querySelector('.hero-slide.active');
+            if (activeSlide) {
+                animateSlideContent(activeSlide);
+            }
+        }, 300);
+    }, 1500);
+    
+    AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100,
+        easing: 'ease-in-out'
+    });
 });
 
 // ===== SCROLL HEADER BACKGROUND =====
@@ -42,12 +65,31 @@ const slides = document.querySelectorAll('.hero-slide');
 
 let currentSlide = 0;
 let autoSlideInterval;
+let loaderFinished = false;
+
+function animateSlideContent(slide) {
+    if (!loaderFinished) return;
+    
+    const elements = slide.querySelectorAll('.hero-subtitle, .diamond-divider, .hero-title, .hero-description, .hero-cta');
+    elements.forEach(el => {
+        el.classList.remove('animate');
+        void el.offsetWidth;
+        el.classList.add('animate');
+    });
+}
 
 function updateSlide() {
     slides.forEach((slide, index) => {
         slide.classList.remove('active');
+        const elements = slide.querySelectorAll('.hero-subtitle, .diamond-divider, .hero-title, .hero-description, .hero-cta');
+        elements.forEach(el => el.classList.remove('animate'));
     });
+    
     slides[currentSlide].classList.add('active');
+    
+    setTimeout(() => {
+        animateSlideContent(slides[currentSlide]);
+    }, 100);
 }
 
 function nextSlide() {
