@@ -107,3 +107,14 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.coffee-card, .service-card').forEach(el => {
     observer.observe(el);
 });
+
+// ===== VIEW MENU BUTTONS =====
+document.querySelectorAll('.coffee-card-menu-btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const menuSection = document.querySelector('#menu');
+        if (menuSection) {
+            menuSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
