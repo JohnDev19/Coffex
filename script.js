@@ -36,19 +36,17 @@ TECHNOLOGIES & FRAMEWORKS
 */
 
 // ===== LOADER =====
-window.addEventListener('load', function() {
+console.log('Script loaded and executing');
+
+let loaderFinished = false;
+
+function hideLoader() {
+    console.log('hideLoader called');
     const loader = document.getElementById('loader');
-    
-    setTimeout(() => {
-        const lazyBackgrounds = document.querySelectorAll('[data-bg]');
-        lazyBackgrounds.forEach(bg => {
-            bg.style.backgroundImage = `url('${bg.dataset.bg}')`;
-        });
-    }, 100);
-    
-    setTimeout(() => {
+    if (loader && !loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
         loaderFinished = true;
+        console.log('Loader hidden successfully');
         
         setTimeout(() => {
             const activeSlide = document.querySelector('.hero-slide.active');
@@ -56,14 +54,35 @@ window.addEventListener('load', function() {
                 animateSlideContent(activeSlide);
             }
         }, 300);
-    }, 1500);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired');
     
-    AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 100,
-        easing: 'ease-in-out'
-    });
+    try {
+        const lazyBackgrounds = document.querySelectorAll('[data-bg]');
+        lazyBackgrounds.forEach(bg => {
+            bg.style.backgroundImage = `url('${bg.dataset.bg}')`;
+        });
+        
+        setTimeout(hideLoader, 1500);
+        
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
+        });
+    } catch (error) {
+        console.error('Error in DOMContentLoaded:', error);
+        hideLoader();
+    }
+});
+
+window.addEventListener('load', function() {
+    console.log('window load event fired');
+    setTimeout(hideLoader, 100);
 });
 
 // ===== SCROLL HEADER BACKGROUND =====
@@ -112,7 +131,6 @@ const slides = document.querySelectorAll('.hero-slide');
 
 let currentSlide = 0;
 let autoSlideInterval;
-let loaderFinished = false;
 
 function animateSlideContent(slide) {
     if (!loaderFinished) return;
@@ -205,5 +223,35 @@ document.querySelectorAll('.coffee-card-menu-btn').forEach(button => {
         if (menuSection) {
             menuSection.scrollIntoView({ behavior: 'smooth' });
         }
+    });
+});
+
+// ===== GO TO TOP BUTTON =====
+const goToTopBtn = document.getElementById('goToTop');
+const heroSection = document.querySelector('.hero');
+
+function toggleGoToTopButton() {
+    const heroHeight = heroSection ? heroSection.offsetHeight : 600;
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollPosition > heroHeight) {
+        goToTopBtn.classList.add('visible');
+    } else {
+        goToTopBtn.classList.remove('visible');
+    }
+}
+
+window.addEventListener('scroll', toggleGoToTopButton);
+
+goToTopBtn.addEventListener('click', function() {
+    goToTopBtn.classList.add('flying');
+    
+    setTimeout(() => {
+        goToTopBtn.classList.remove('flying');
+    }, 800);
+    
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
     });
 });
