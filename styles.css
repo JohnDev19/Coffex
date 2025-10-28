@@ -2398,3 +2398,89 @@ footer > * {
         transform: translateX(-50%);
     }
 }
+
+/* ===== GO TO TOP BUTTON ===== */
+.go-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transform: translate(-100px, 100px);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.go-to-top.visible {
+    transform: translate(0, 0);
+}
+
+.go-to-top.flying {
+    animation: rocket-fly 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.go-to-top-diamond {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.go-to-top-diamond polygon {
+    fill: var(--accent);
+    stroke: var(--accent);
+    stroke-width: 0;
+    transition: all 0.3s ease;
+}
+
+.go-to-top:hover .go-to-top-diamond polygon {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+}
+
+.go-to-top-icon {
+    position: relative;
+    font-size: 20px;
+    color: var(--primary);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.go-to-top:hover .go-to-top-icon {
+    color: var(--accent);
+}
+
+@keyframes rocket-fly {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(0, -100vh) scale(0.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(0, -150vh) scale(0.3);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .go-to-top {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .go-to-top-icon {
+        font-size: 16px;
+    }
+}
