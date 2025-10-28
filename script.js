@@ -189,10 +189,19 @@ startAutoSlide();
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+
         if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            e.preventDefault();
+
+            // close mobile menu
+            closeMobileMenu();
+
+            // wait a tiny bit to allow menu to close smoothly
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
         }
     });
 });
