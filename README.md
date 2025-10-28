@@ -2,6 +2,10 @@
 
 A fully responsive website template designed for coffee shops, cafes, and premium beverage businesses. Features an elegant design with diamond-shaped theme and smooth animations throughout.
 
+![poster1](poster1.jpg)
+![poster2](poster2.jpg)
+![poster3](poster3.jpg)
+
 ## Template Features
 
 ### Design Highlights
